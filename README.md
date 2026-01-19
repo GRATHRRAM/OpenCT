@@ -1,0 +1,2 @@
+# OpenCT
+ Open Capitalist tycoon
