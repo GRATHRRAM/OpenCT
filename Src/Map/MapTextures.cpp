@@ -7,6 +7,10 @@ MapTextures::MapTextures() {
     if(!IsTextureValid(Textures[int(TextureID::Test)])) 
         std::cout << "MapTextures -> Texture Assets/Textures/Test.png is not Valid!\n";
 
+    Textures[int(TextureID::Select)] = LoadTexture("Assets/Textures/Select.png");
+    if(!IsTextureValid(Textures[int(TextureID::Select)])) 
+        std::cout << "MapTextures -> Texture Assets/Textures/Select.png is not Valid!\n";
+
     Textures[int(TextureID::Grass)] = LoadTexture("Assets/Textures/Grass.png");
     if(!IsTextureValid(Textures[int(TextureID::Grass)])) 
         std::cout << "MapTextures -> Texture Assets/Textures/Grass.png is not Valid!\n";

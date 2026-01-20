@@ -10,6 +10,9 @@ class Map {
 
     void Draw(); 
     Vector2 Map2Screen(int x, int y);
+    Vector2 Screen2Map(int x, int y);
+
+    MapTextures MapTextures_;
 
     private:
     int MapWidth = 16;
@@ -19,7 +22,8 @@ class Map {
 
     int ArraySize = 0;
 
-    uint8_t *Tiles = nullptr;
+    float INV_HALF_W = 1.0f / (TileWidth / 2.f); // 1 / (TileWidth / 2)
+    float INV_HALF_H = 1.0f / (TileHeight / 2.f); // 1 / (TileHeight / 2)
 
-    MapTextures MapTextures_;
+    uint8_t *Tiles = nullptr;
 };

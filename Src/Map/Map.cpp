@@ -1,6 +1,8 @@
 #include "Map.hpp"
 #include "MapTextures.hpp"
 #include <cstdint>
+#include <raylib.h>
+#include <math.h>
 
 Map::Map(int MapWidth, int MapHeight, int TileWidth, int TileHeight) :
     MapWidth(MapWidth),
@@ -17,7 +19,7 @@ Map::Map(int MapWidth, int MapHeight, int TileWidth, int TileHeight) :
 }
 
 Map::~Map() {
-    delete Tiles;
+    delete[] Tiles;
 }
 
 void Map::Draw() {
@@ -29,9 +31,35 @@ void Map::Draw() {
     }
 }
 
-Vector2 Map::Map2Screen(int x, int y) {
-        return Vector2(
-        (x - y) * (TileWidth / 2.f) + TileWidth,
-        (x + y) * (TileHeight / 2.f) + TileHeight
-    );
+Vector2 Map::Map2Screen(int x, int y)
+{
+    constexpr float halfW = 32.0f;
+    constexpr float halfH = 16.0f;
+
+    return Vector2{
+        (x - y) * halfW + halfW,
+        (x + y) * halfH
+    };
 }
+
+Vector2 Map::Screen2Map(int screenX, int screenY)
+{
+    constexpr float halfW = 32.0f;
+    constexpr float halfH = 16.0f;
+
+    float fx = (screenX / halfW + screenY / halfH) * 0.5f;
+    float fy = (screenY / halfH - screenX / halfW) * 0.5f;
+
+    int tx = (int)std::floor(fx + 0.5f);
+    int ty = (int)std::floor(fy + 0.5f);
+
+    return Vector2{ (float)tx, (float)ty };
+}
+
+/* 
+Vector2 Map::Screen2Map(int x, int y) {
+    return Vector2 (
+        ((float(y) / TileHeight) + (float(x) / TileWidth) - 3),
+        ((float(y) / TileHeight) - (float(x) / TileWidth))
+    );
+}*/

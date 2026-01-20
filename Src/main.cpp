@@ -1,4 +1,5 @@
 #include "Map/Map.hpp"
+#include "Map/MapTextures.hpp"
 #include <iostream>
 #include <raylib.h>
 
@@ -29,14 +30,22 @@ int main() {
         if (Camera.zoom < 0.25f) Camera.zoom = 0.25f;
         if (Camera.zoom > 4.0f)  Camera.zoom = 4.0f;
 
+        Vector2 Mouse = Vector2(GetMouseX(),GetMouseY());
+        Vector2 MouseWorld = GetScreenToWorld2D(Mouse, Camera);
+        Vector2 TileSelected = _Map.Screen2Map(MouseWorld.x, MouseWorld.y);
+
         BeginDrawing();
         ClearBackground(BLACK);
             BeginMode2D(Camera);
 
             _Map.Draw();
 
+            Vector2 SelectCords = _Map.Map2Screen(TileSelected.x, TileSelected.y);
+            DrawTexture(_Map.MapTextures_.Textures[int(TextureID::Select)], SelectCords.x, SelectCords.y, WHITE);
+
             EndMode2D();
-        DrawText("WASD move | Mouse wheel zoom", 20, 20, 20, DARKGRAY);
+        DrawText("WASD move | Mouse wheel zoom", 20, 20, 20, LIGHTGRAY);
+        DrawText(TextFormat("Tile Selected: X: %.0f Y: %.0f", TileSelected.x, TileSelected.y), 20, 50, 20, LIGHTGRAY);
         EndDrawing();
     }
 

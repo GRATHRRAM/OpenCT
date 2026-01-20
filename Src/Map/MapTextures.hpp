@@ -4,6 +4,7 @@
 
 enum class TextureID : uint8_t {
     Test = 0,
+    Select,
     Grass,
     Sand,
     Water
@@ -14,5 +15,5 @@ class MapTextures {
     MapTextures();
     ~MapTextures();
 
-    Texture Textures[4] = {};
+    Texture Textures[5] = {};
 };
