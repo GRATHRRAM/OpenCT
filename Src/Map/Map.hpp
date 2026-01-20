@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include <raylib.h>
+#include <sys/types.h>
 #include "MapTextures.hpp"
 
 class Map {
@@ -11,6 +12,8 @@ class Map {
     void Draw(); 
     Vector2 Map2Screen(int x, int y);
     Vector2 Screen2Map(int x, int y);
+
+    void SetTileTexture(Vector2 GridPos, uint8_t id);
 
     MapTextures MapTextures_;
 

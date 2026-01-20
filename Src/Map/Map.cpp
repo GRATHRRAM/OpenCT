@@ -64,3 +64,7 @@ Vector2 Map::Screen2Map(int screenX, int screenY)
 
     return Vector2{ (float)tx, (float)ty };
 }
+
+void Map::SetTileTexture(Vector2 GridPos, uint8_t id) {
+    Tiles[int(GridPos.y * MapWidth + GridPos.x)] = id;
+}

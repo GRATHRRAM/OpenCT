@@ -34,6 +34,13 @@ int main() {
         Vector2 MouseWorld = GetScreenToWorld2D(Mouse, Camera);
         Vector2 TileSelected = _Map.Screen2Map(MouseWorld.x, MouseWorld.y);
 
+        if(IsKeyDown(KEY_ZERO))  _Map.SetTileTexture(TileSelected, 0);
+        if(IsKeyDown(KEY_ONE))   _Map.SetTileTexture(TileSelected, 1);
+        if(IsKeyDown(KEY_TWO))   _Map.SetTileTexture(TileSelected, 2);
+        if(IsKeyDown(KEY_THREE)) _Map.SetTileTexture(TileSelected, 3);
+        if(IsKeyDown(KEY_FOUR))  _Map.SetTileTexture(TileSelected, 4);
+        
+
         BeginDrawing();
         ClearBackground(BLACK);
             BeginMode2D(Camera);
