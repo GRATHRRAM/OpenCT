@@ -1,5 +1,6 @@
 #include "Map.hpp"
 #include "MapTextures.hpp"
+#include <algorithm>
 #include <cstdint>
 #include <raylib.h>
 #include <math.h>
@@ -47,19 +48,19 @@ Vector2 Map::Screen2Map(int screenX, int screenY)
     constexpr float halfW = 32.0f;
     constexpr float halfH = 16.0f;
 
-    float fx = (screenX / halfW + screenY / halfH) * 0.5f;
-    float fy = (screenY / halfH - screenX / halfW) * 0.5f;
+    // Translate relative to origin (top of map)
+    float localX = screenX - halfW;
+    float localY = screenY;
 
-    int tx = (int)std::floor(fx + 0.5f);
-    int ty = (int)std::floor(fy + 0.5f);
+    float fx = (localX / halfW + localY / halfH) * 0.5f;
+    float fy = (localY / halfH - localX / halfW) * 0.5f;
+
+    int tx = (int)std::floor(fx);
+    int ty = (int)std::floor(fy);
+
+    // Optional: clamp to map bounds
+    tx = std::clamp(tx, 0, MapWidth-1);
+    ty = std::clamp(ty, 0, MapHeight-1);
 
     return Vector2{ (float)tx, (float)ty };
 }
-
-/* 
-Vector2 Map::Screen2Map(int x, int y) {
-    return Vector2 (
-        ((float(y) / TileHeight) + (float(x) / TileWidth) - 3),
-        ((float(y) / TileHeight) - (float(x) / TileWidth))
-    );
-}*/
