@@ -1,22 +1,10 @@
 #include "Map/Map.hpp"
-#include <cstddef>
-#include <cstdint>
 #include <iostream>
 #include <raylib.h>
 
-#define MapWidth 16
-#define MapHeight 16
-#define TilesSize MapHeight * MapWidth
-
-#define TileWidth 64
-#define TileHeight 32
-
-Vector2 Map2Screen(int x, int y) {
-    return Vector2(
-        (x - y) * (TileWidth / 2.f) + TileWidth,
-        (x + y) * (TileHeight / 2.f) + TileHeight
-    );
-}
+/*
+    TODO ONLY DRAW Tiles that on the Screen!!!
+*/
 
 int main() {
     std::cout << "Wellcome To OpenCT!\nBooting...\n";
