@@ -1,3 +1,4 @@
+#include "Map/Map.hpp"
 #include <cstddef>
 #include <cstdint>
 #include <iostream>
@@ -26,10 +27,7 @@ int main() {
     Camera2D Camera = {};
     Camera.zoom = 1.f;
 
-    Texture Text = LoadTexture("Assets/Textures/test.png");
-    if(!IsTextureValid(Text)) std::cout << "invalid texture\n";
-
-    uint8_t Tiles[TilesSize] = {};
+    Map _Map(32,32,64,32);
 
     while (!WindowShouldClose())
     {
@@ -44,17 +42,10 @@ int main() {
         if (Camera.zoom > 4.0f)  Camera.zoom = 4.0f;
 
         BeginDrawing();
-        ClearBackground(SKYBLUE);
+        ClearBackground(BLACK);
             BeginMode2D(Camera);
-            DrawCircle(0, 0, 200, WHITE);
-            DrawTexture(Text, 0, 0, Color(255,255,255,255));
 
-            for(int y = 0; y < MapHeight; y++) {
-                for(int x = 0; x < MapWidth; x++) {
-                    Vector2 Pos = Map2Screen(x,y);
-                    DrawTexture(Text, Pos.x + 0.5, Pos.y + 0.5, Color(255,255,255,255));
-                }
-            }
+            _Map.Draw();
 
             EndMode2D();
         DrawText("WASD move | Mouse wheel zoom", 20, 20, 20, DARKGRAY);
